@@ -17,6 +17,10 @@ def example(print_full_table):
     print(vr_prim)
     print(vs_prim)
 
+    vr_prim, vs_prim = crossingovers.Crossingovers.mixed(s6, s6_2)
+    print(vr_prim)
+    print(vs_prim)
+
     #example of event profiling
     e1 = event.Event("Goldstein")
     e1.start()
