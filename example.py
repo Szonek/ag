@@ -2,12 +2,22 @@ import event
 import functions
 import time
 import specimen
+import crossingovers
 
 def example(print_full_table):
     s6 = specimen.Specimen(6, 0, 1)
+    s6_2 = specimen.Specimen(6, 0, 1)
     s4 = specimen.Specimen(4, 0, 1)
     s2 = specimen.Specimen(2, 0, 1)
 
+
+
+    #example of crossingover
+    vr_prim, vs_prim = crossingovers.Crossingovers.aritmetic(s6, s6_2)
+    print(vr_prim)
+    print(vs_prim)
+
+    #example of event profiling
     e1 = event.Event("Goldstein")
     e1.start()
     e1.add_result(functions.Goldstein_Price(s2.x))
