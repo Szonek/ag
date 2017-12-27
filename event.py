@@ -2,7 +2,7 @@ import time
 
 
 class Event:
-    def __init__(self, func_name, iterations):
+    def __init__(self, func_name, iterations = -1):
         self.func_name = func_name
         self.iterations = iterations
         self.elapsed_time_seconds = 0
