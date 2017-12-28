@@ -3,11 +3,12 @@ import random
 
 
 class Specimen:
-    def __init__(self, size, min, max):
-        self.i = size
+    def __init__(self, N,size_chromosome, min, max):
+        self.i = N
+        self.g = size_chromosome
         self.x = []
         for j in range(self.i):
-            self.x.append(random.uniform(min, max))
+            self.x.append([random.uniform(min, max) for i in range(size_chromosome)])
         self.v = self.x
         self.f_x = 0
 
