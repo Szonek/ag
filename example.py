@@ -24,12 +24,13 @@ def example(print_full_table):
 
     #example of crossingover
     vr_prim, vs_prim = crossingovers.Crossingovers.aritmetic(s6_2, s6_21)
-    print(vr_prim)
-    print(vs_prim)
+    print(vr_prim.x)
+    print(vs_prim.x)
 
     vr_prim, vs_prim = crossingovers.Crossingovers.mixed(s6, s61)
-    print(vr_prim)
-    print(vs_prim)
+    print(vr_prim.x)
+    print(vs_prim.x)
+
 
     #example of event profiling
     e1 = event.Event("Goldstein")

@@ -13,10 +13,12 @@ class Crossingovers:
         vs_prim = []
         func = lambda x, y: a * x + (1 - a) * y
         for j in range(len(vr.x)):
-            vr_prim.append([func(vr.x[0][i], vs.x[0][i]) for i in range(vr.g)])
-            vs_prim.append([func(vs.x[0][i], vr.x[0][i]) for i in range(vr.g)])
+            vr_prim.append([func(vr.x[j][i], vs.x[j][i]) for i in range(vr.g)])
+            vs_prim.append([func(vs.x[j][i], vr.x[j][i]) for i in range(vr.g)])
 
-        return vr_prim, vs_prim
+        speci_vr_prim = specimen.Specimen(N=vr.i, size_chromosome=vr.g, x=vr_prim)
+        speci_vs_prim = specimen.Specimen(N=vs.i, size_chromosome=vs.g, x=vs_prim)
+        return speci_vr_prim, speci_vs_prim
 
 
 
@@ -37,4 +39,7 @@ class Crossingovers:
             vr_prim.append(temp_vr_prim)
             vs_prim.append(temp_vs_prim)
 
-        return vr_prim, vs_prim
+        speci_vr_prim = specimen.Specimen(N=vr.i, size_chromosome=vr.g, x=vr_prim)
+        speci_vs_prim = specimen.Specimen(N=vs.i, size_chromosome=vs.g, x=vs_prim)
+
+        return speci_vr_prim, speci_vs_prim
