@@ -5,7 +5,6 @@ class Mutation:
     def __init__(self):
         pass
 
-
     @staticmethod
     def value_uniform(probalility, min, max, population, which_parameter):
         new_population = copy.deepcopy(population)
@@ -32,5 +31,5 @@ class Mutation:
             new_population[random_inv[x]][random_first_position[x]] = new_population[random_inv[x]][random_second_position[x]]
             new_population[random_inv[x]][random_second_position[x]] = temp
 
-        return population
+        return new_population
 
