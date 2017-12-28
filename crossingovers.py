@@ -16,7 +16,7 @@ class Crossingovers:
             vr_prim.append(func(vr.x[i], vs.x[i]))
             vs_prim.append(func(vs.x[i], vr.x[i]))
 
-        return specimen.Specimen(x=vr_prim), specimen.Specimen(x=vs_prim)
+        return vr_prim, vs_prim
 
 
 
@@ -31,4 +31,4 @@ class Crossingovers:
             vr_prim.append(func(vr.x[i], vs.x[i]))
             vs_prim.append(func(vs.x[i], vr.x[i]))
 
-        return specimen.Specimen(x=vr_prim), specimen.Specimen(x=vs_prim)
+        return vr_prim, vs_prim
