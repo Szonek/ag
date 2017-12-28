@@ -1,7 +1,7 @@
 import event
 import functions
 import time
-import specimen
+import stategies
 import crossingovers
 import mutation
 import population
@@ -43,7 +43,10 @@ def full_example():
         child_population_after_mutation.chromosome[j].f_x = functions.Goldstein_Price(child_population_after_mutation.chromosome[j].x)
 
     popul.add_child(child_population_after_mutation)
+
     #step 4 - stategis to choose new population from the old one
+    popul = stategies.Strategies.full(popul)
+
     pass
 
 
