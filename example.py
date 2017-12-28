@@ -42,6 +42,7 @@ def full_example():
     for j in range(child_population_after_mutation.size):
         child_population_after_mutation.chromosome[j].f_x = functions.Goldstein_Price(child_population_after_mutation.chromosome[j].x)
 
+    popul.add_child(child_population_after_mutation)
     #step 4 - stategis to choose new population from the old one
     pass
 
