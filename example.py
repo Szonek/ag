@@ -18,14 +18,17 @@ def example(print_full_table):
     start_population = population.Population([s6.x, s61.x, s6_2.x, s6_21.x])
 
     #example of mutation
-    new_specimans = mutation.Mutation.value_uniform(0.5,-2,2,start_population.array_of_float,1)
-    start_population.append(new_specimans)
+    child_population = population.Population([])
+    child_1 = mutation.Mutation.value_uniform(0.5,-2,2,start_population.array_of_float,1)
     #prawdopodobienstwo,min,max,populacja,ktory gen podmieniamy
 
-    new_specmans_2 = mutation.Mutation.reciprocal_exchange(0.5,start_population.array_of_float)
+    child_2 = mutation.Mutation.reciprocal_exchange(0.5,start_population.array_of_float)
     #prawdopodoienstwo,populacja
 
-    start_population.append(new_specmans_2)
+    child_population.append(child_1)
+    child_population.append(child_2)
+    start_population.add_child(child_population)
+
 
     #example of crossingover
     vr_prim, vs_prim = crossingovers.Crossingovers.aritmetic(s6_2, s6_21)
@@ -43,7 +46,7 @@ def example(print_full_table):
     p1 = event.Profiling("Goldstein")
 
     for i in range(start_population.size):
-        e1 = event.Event5("Goldstein_" + str(i))
+        e1 = event.Event("Goldstein_" + str(i))
         e1.start()
         e1.add_result(functions.Goldstein_Price(start_population.array_of_float[i]))
         time.sleep(0.01) #zeby nie bylo end - start = 0

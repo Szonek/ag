@@ -5,7 +5,9 @@ class Population:
         self.array_of_float = array_of_float
         self.chromosome = [specimen.Specimen(x=values) for values in self.array_of_float]
         self.size = len(self.array_of_float)
-        self.__check_sizes()
+        self.child = None
+        if self.size != 0:
+            self.__check_sizes()
         pass
 
     def __check_sizes(self):
@@ -19,5 +21,11 @@ class Population:
         for i in range(len(array_of_floats)):
             self.chromosome.append(specimen.Specimen(x=array_of_floats[i]))
         self.size = len(self.array_of_float)
-        self.__check_sizes()
+        if self.size != 0:
+            self.__check_sizes()
         pass
+
+    def add_child(self, population):
+        self.child = population
+        pass
+
