@@ -1,4 +1,5 @@
 import random
+import math
 
 
 class Selection:
@@ -33,7 +34,43 @@ class Selection:
 
     @staticmethod
     def proportional(population):
-        print("To do")
+        new_population = []
+        N = len(population.chromosome)
+        f_x = [population.chromosome[j].f_x for j in range(N)]
+        min_value = min(f_x)
+        if min_value <0:
+            func = lambda x: x+math.fabs(min_value)
+            f_x = [func(f_x[j]) for j in range(N)]
+        population_sum = sum(f_x)
+        func_probabilty = lambda x:x/population_sum
+        p_s = [func_probabilty(f_x[j]) for j in range(N)]
+        proportional_list = []
+        proportional_dict = {'index':0, 'f_x':0, 'p_s':0}
+        for i in range(N):
+            proportional_dict['index'] = i
+            proportional_dict['f_x'] = f_x[i]
+            proportional_dict['p_s'] = p_s[i]
+            proportional_list.append(proportional_dict.copy())
+        new_proprtional_list = sorted(proportional_list, key=lambda proportional_list: proportional_list['p_s'])
+        q_s = []
+        for i in range(N):
+            temp = new_proprtional_list[0]['p_s']
+            for j in range(i):
+                temp+=new_proprtional_list[j+1]['p_s']
+            q_s.append(temp)
+        for i in range(N):
+            lucky_number = random.uniform(0,1)
+            lucky_number_index = 0
+            for j in range(N):
+                if lucky_number <= q_s[j]:
+                    lucky_number_index = j
+                    break
+            new_population.append(population.chromosome[lucky_number_index].x)
+        return new_population
+
+
+
+
 
 
 
