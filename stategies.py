@@ -1,4 +1,5 @@
 import population
+import copy
 
 
 class Strategies:
@@ -7,5 +8,5 @@ class Strategies:
 
     @staticmethod
     def full(popul):
-        popul = popul.child
+        popul = copy.deepcopy(popul.child)
         return popul

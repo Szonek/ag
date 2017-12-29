@@ -6,11 +6,12 @@ import crossingovers
 import mutation
 import population
 import random
+import selection
 
 #  example of Goldstain Price
 def full_example():
 
-    num_of_start_population = 100
+    num_of_start_population = 10
     i = 2
     min = -2
     max = 2
@@ -25,7 +26,9 @@ def full_example():
         popul.chromosome[j].f_x = functions.Goldstein_Price(popul.chromosome[j].x)
 
     #step 2 - make selection
-
+    test_population = selection.Selection.tournament(popul)
+    print(test_population)
+    print(len(test_population))
     #step 3 - crossingover and mutation of best specimens in population
     #kryzwanie na wyseekcjonowanych rodziach
     #mutacje sie robi na potmokach(z krzyzywaonia) zeby je zmienic

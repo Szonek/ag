@@ -1,4 +1,5 @@
 import specimen
+import copy
 
 class Population:
     def __init__(self, array_of_float):
@@ -26,6 +27,6 @@ class Population:
         pass
 
     def add_child(self, population):
-        self.child = population
+        self.child = copy.deepcopy(population)
         pass
 
