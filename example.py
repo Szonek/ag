@@ -16,6 +16,7 @@ def full_example():
     i = 2
     min = -2
     max = 2
+    chance_for_crossingover = 0.5
     popul = population.Population([])
     ploter.addKind('przed')
     #step 1 - random start population
@@ -33,15 +34,23 @@ def full_example():
     #step 2 - make selection
     test_population = selection.Selection.proportional(popul)
     print(test_population)
+    population_after_selection = population.Population(test_population)
     #step 3 - crossingover and mutation of best specimens in population
     #kryzwanie na wyseekcjonowanych rodziach
     #mutacje sie robi na potmokach(z krzyzywaonia) zeby je zmienic
     #ponizej testowo
     child_population = population.Population([])
-    kids_1 = crossingovers.Crossingovers.aritmetic(popul.chromosome[0], popul.chromosome[1])
-    child_population.append(kids_1)
-    kids_2 = crossingovers.Crossingovers.aritmetic(popul.chromosome[2], popul.chromosome[3])
-    child_population.append(kids_2)
+    for j in range(int(0.5*chance_for_crossingover*num_of_start_population)):
+        rand_dad = random.randint(0, num_of_start_population-1)
+        rand_mom = random.randint(0, num_of_start_population-1)
+        kid = crossingovers.Crossingovers.aritmetic(population_after_selection.chromosome[rand_dad], population_after_selection.chromosome[rand_mom])
+        child_population.append(kid)
+        child_population.append([population_after_selection.chromosome[rand_dad].x, population_after_selection.chromosome[rand_mom].x])
+    if child_population.size != num_of_start_population:
+        rand_dad = random.randint(0, num_of_start_population-1)
+        rand_mom = random.randint(0, num_of_start_population-1)
+        child_population.append([population_after_selection.chromosome[rand_dad].x, population_after_selection.chromosome[rand_mom].x])
+    print(child_population)
     after_mutation = mutation.Mutation.reciprocal_exchange(0.5, child_population.array_of_float)
     child_population_after_mutation = population.Population(after_mutation)
     ploter.addKind('po')
