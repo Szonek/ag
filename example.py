@@ -68,7 +68,7 @@ def full_example():
     func_mutation = mutation.Mutation.reciprocal_exchange
     func_crossingovers = crossingovers.Crossingovers.aritmetic
     func_selection = selection.Selection.tournament
-    computing_loop(func,popul,10,ploter,'Randomowa',100,func_selection,0.8,func_crossingovers,func_mutation,0.8)
+    computing_loop(func,popul,10,ploter,'Randomowa',10,func_selection,0.9,func_crossingovers,func_mutation,0.8)
     ploter.showPlot()
     pass
 
@@ -93,23 +93,36 @@ def computing_loop(function ,popul, N, ploter, name_for_plot, number_of_iteratio
         #kryzwanie na wyseekcjonowanych rodziach
         #ponizej testowo
         child_population = population.Population([])
-        for j in range(int(0.5*probalility_of_crossingovers*N)):
+        for j in range(int(2*N)):
             rand_dad = random.randint(0, N-1)
             rand_mom = random.randint(0, N-1)
             kid = crossingovers_type(population_after_selection.chromosome[rand_dad], population_after_selection.chromosome[rand_mom])
             child_population.append(kid)
             child_population.append([population_after_selection.chromosome[rand_dad].x, population_after_selection.chromosome[rand_mom].x])
-        if child_population.size != N:
-            rand_dad = random.randint(0, N-1)
-            rand_mom = random.randint(0, N-1)
-            child_population.append([population_after_selection.chromosome[rand_dad].x, population_after_selection.chromosome[rand_mom].x])
+        #if child_population.size != N:
+            #rand_dad = random.randint(0, N-1)
+            #rand_mom = random.randint(0, N-1)
+            #child_population.append([population_after_selection.chromosome[rand_dad].x, population_after_selection.chromosome[rand_mom].x])
         after_mutation = mutation_type(probalility_of_mutation, child_population.array_of_float)
         child_population_after_mutation = population.Population(after_mutation)
         #step 3b - calculate f_x
-        #for j in range(child_population_after_mutation.size):
-        #    child_population_after_mutation.chromosome[j].f_x = functions.Goldstein_Price(child_population_after_mutation.chromosome[j].x)
-        #    ploter.addData('po', child_population_after_mutation.chromosome[j].f_x)
-        popul.add_child(child_population_after_mutation)
+        for j in range(2*N):
+            child_population_after_mutation.chromosome[j].f_x = function(child_population_after_mutation.chromosome[j].x)
+        temp = []
+        dict_ind_f = {'f_x': 0, 'index': 0}
+        for j in range(2*N):
+            dict_ind_f['f_x'] = child_population_after_mutation.chromosome[j].f_x
+            dict_ind_f['index'] = j
+            temp.append(dict_ind_f.copy())
+        sorted_temp = sorted(temp, reverse=True, key=lambda tup: tup['f_x'])
+        child_population_test = population.Population([])
+        print(sorted_temp)
+        temp = []
+        for j in range(N):
+            print(child_population_after_mutation.chromosome[sorted_temp[j]['index']].x)
+            temp.append(child_population_after_mutation.chromosome[sorted_temp[j]['index']].x)
+        child_population_test.append(temp)
+        popul.add_child(child_population_test)
 
         #step 4 - stategis to choose new population from the old one
         popul = stategies.Strategies.full(popul)

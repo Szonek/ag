@@ -11,7 +11,7 @@ class Mutation:
         count_to_mutation = int(len(new_population)*probalility)
 
         random_values = [random.uniform(min, max) for i in range(count_to_mutation)]
-        random_inv = [int(random.uniform(0,len(new_population)-1)) for i in range(count_to_mutation)]
+        random_inv = [random.randint(0,len(new_population)-1) for i in range(count_to_mutation)]
 
         for x in range(len(random_inv)):
             new_population[random_inv[x]][which_parameter] = random_values[x]
