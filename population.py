@@ -30,3 +30,7 @@ class Population:
         self.child = copy.deepcopy(population)
         pass
 
+    def get_max_f_x(self):
+        return max(map(lambda x: x.f_x, self.chromosome))
+
+

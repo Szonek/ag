@@ -7,15 +7,17 @@ import mutation
 import population
 import random
 import selection
+from Plot import Plot
 
 #  example of Goldstain Price
 def full_example():
-
+    ploter =Plot()
     num_of_start_population = 10
     i = 2
     min = -2
     max = 2
     popul = population.Population([])
+    ploter.addKind('przed')
     #step 1 - random start population
     for j in range(num_of_start_population):
         rand_arr = [random.uniform(min, max) for k in range(i)]
@@ -24,6 +26,9 @@ def full_example():
     #step 1b - calculate f_x
     for j in range(num_of_start_population):
         popul.chromosome[j].f_x = functions.Goldstein_Price(popul.chromosome[j].x)
+        ploter.addData('przed', popul.chromosome[j].f_x)
+
+    print(popul.get_max_f_x())
 
     #step 2 - make selection
     test_population = selection.Selection.proportional(popul)
@@ -39,16 +44,17 @@ def full_example():
     child_population.append(kids_2)
     after_mutation = mutation.Mutation.reciprocal_exchange(0.5, child_population.array_of_float)
     child_population_after_mutation = population.Population(after_mutation)
-
+    ploter.addKind('po')
     #step 3b - calculate f_x
     for j in range(child_population_after_mutation.size):
         child_population_after_mutation.chromosome[j].f_x = functions.Goldstein_Price(child_population_after_mutation.chromosome[j].x)
-
+        ploter.addData('po', child_population_after_mutation.chromosome[j].f_x)
     popul.add_child(child_population_after_mutation)
 
     #step 4 - stategis to choose new population from the old one
     popul = stategies.Strategies.full(popul)
 
+    ploter.showPlot()
     pass
 
 
