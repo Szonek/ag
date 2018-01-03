@@ -29,6 +29,25 @@ class Selection:
 
         return new_population
 
+    @staticmethod
+    def gowno(popul,f_x):
+        new_population = []
+        temp = []
+        N = len(popul)
+        dict_ind_f = {'f_x': 0, 'index': 0}
+        for j in range(N):
+            dict_ind_f['f_x'] = f_x[j]
+            dict_ind_f['index'] = j
+            temp.append(dict_ind_f.copy())
+
+        sorted_temp = sorted(temp, reverse=True, key=lambda tup: tup['f_x'])
+        i = 0
+        for j in range(N):
+            if i==4:
+                i =0
+            new_population.append(popul[sorted_temp[i]['index']])
+            i+=1
+        return new_population
 
 
 
@@ -38,9 +57,6 @@ class Selection:
         N = len(population.chromosome)
         f_x = [population.chromosome[j].f_x for j in range(N)]
         min_value = min(f_x)
-        if min_value <0:
-            func = lambda x: x+math.fabs(min_value)
-            f_x = [func(f_x[j]) for j in range(N)]
         population_sum = sum(f_x)
         func_probabilty = lambda x:x/population_sum
         p_s = [func_probabilty(f_x[j]) for j in range(N)]

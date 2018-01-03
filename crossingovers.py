@@ -8,15 +8,22 @@ class Crossingovers:
 
     @ staticmethod
     def aritmetic(vr, vs):
-        a = random.uniform(0, 1)
+        a = 2
         vr_prim = []
         vs_prim = []
         func = lambda x, y: a * x + (1 - a) * y
-        for i in range(vr.i):
-            vr_prim.append(func(vr.x[i], vs.x[i]))
-            vs_prim.append(func(vs.x[i], vr.x[i]))
+        for i in range(len(vr)):
+            vr_prim.append(func(vr[i], vs[i]))
+            vs_prim.append(func(vs[i], vr[i]))
 
-        return vr_prim, vs_prim
+        if  vr_prim[0] in range(-2,2) and vr_prim[1] in range(-2,2) and vs_prim[0] in range(-2,2) and vs_prim[1] in range(-2,2):
+            return vr_prim, vs_prim
+        elif vr_prim[0] in range(-2,2) and vr_prim[1] in range(-2,2):
+            return vr_prim,vs
+        elif vs_prim[0] in range(-2,2) and vs_prim[1] in range(-2,2):
+            return vr,vs_prim
+        else:
+            return vs,vr
 
 
 

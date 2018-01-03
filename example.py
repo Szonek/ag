@@ -68,8 +68,8 @@ def full_example():
     func = functions.Goldstein_Price
     func_mutation = mutation.Mutation.reciprocal_exchange
     func_crossingovers = crossingovers.Crossingovers.aritmetic
-    func_selection = selection.Selection.tournament
-    computing_loop(func,popul,10,ploter,'Randomowa',100,func_selection,0.8,func_crossingovers,func_mutation,0.8)
+    func_selection = selection.Selection.gowno
+    computing_loop(func,popul,10,ploter,'Randomowa',10,func_selection,0.8,func_crossingovers,func_mutation,0.1)
     ploter.showPlot()
     pass
 
@@ -78,13 +78,19 @@ def computing_loop(function ,popul, N, ploter, name_for_plot, number_of_iteratio
                    probalility_of_crossingovers, crossingovers_type, mutation_type, probalility_of_mutation,
                    parameter_for_mutation=0, min_max_mutation=0, scale_c=2):
     ploter.addKind(name_for_plot)
+    ploter.addKind("po selekcji")
     i = 0
+
     while i<number_of_iterations:
         for j in range(N):
             popul.chromosome[j].f_x = function(popul.chromosome[j].x)
+        max_popul = popul.get_max_f_x()
+        for j in range(N):
+            popul.chromosome[j].f_x = max_popul - popul.chromosome[j].f_x
 
         ploter.addData(name_for_plot, popul.get_max_f_x())
-        print(popul.get_max_f_x())
+        print(popul.get_max_f_x()+max_popul)
+
 
         #make sigma-cutting scaling
         scaling.Scaling.sigma_cutting(popul, scale_c)
@@ -92,11 +98,19 @@ def computing_loop(function ,popul, N, ploter, name_for_plot, number_of_iteratio
         #step 2 - make selection
         test_population = selection_type(popul)
         population_after_selection = population.Population(test_population)
+        for j in range(N):
+            population_after_selection.chromosome[j].f_x = function(population_after_selection.chromosome[j].x)
+        max_popul = population_after_selection.get_max_f_x()
+        for j in range(N):
+            population_after_selection.chromosome[j].f_x = max_popul - population_after_selection.chromosome[j].f_x
+
+        ploter.addData("po selekcji", population_after_selection.get_max_f_x())
+        print("po selekcji",population_after_selection.get_max_f_x()+max_popul)
         #step 3 - crossingover and mutation of best specimens in population
         #kryzwanie na wyseekcjonowanych rodziach
         #ponizej testowo
         child_population = population.Population([])
-        for j in range(int(0.5*probalility_of_crossingovers*N)):
+        for j in range(int(probalility_of_crossingovers*N)):
             rand_dad = random.randint(0, N-1)
             rand_mom = random.randint(0, N-1)
             kid = crossingovers_type(population_after_selection.chromosome[rand_dad], population_after_selection.chromosome[rand_mom])
