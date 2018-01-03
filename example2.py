@@ -12,7 +12,7 @@ from Plot import Plot
 
 
 
-num_of_start_population = 100
+num_of_start_population = 10
 i = 2
 min = -2
 maxx = 2
@@ -44,7 +44,8 @@ while ff<max_iter :
 
     last_f_x = scaling.Scaling.gowno_sigma(f_x_a, 2)
 
-    test_population = selection.Selection.gproportional(wspolrzedne,last_f_x)
+    #test_population = selection.Selection.gproportional(wspolrzedne,last_f_x)
+    test_population = wspolrzedne
     population_after_cross = []
     N= len(wspolrzedne)
     for j in range(int(0.8 * N)):
@@ -64,7 +65,11 @@ while ff<max_iter :
     new_f_x_sorted = [point[0] for point in sor]
     new_test_population_sorted = [point[1] for point in sor]
 
-    wspolrzedne = test_population[:]
+    final_popul = []
+    for j in range(num_of_start_population):
+        final_popul.append(new_test_population_sorted[j])
+
+    wspolrzedne = final_popul[:]
     ff+=1
 
 print("iter",ff)
