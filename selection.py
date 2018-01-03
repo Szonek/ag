@@ -89,6 +89,8 @@ class Selection:
         new_population = []
         N = len(population)
         population_sum = sum(f_x)
+        if population_sum == 0:
+            return None
         func_probabilty = lambda x: x / population_sum
         p_s = [func_probabilty(f_x[j]) for j in range(N)]
         proportional_list = []

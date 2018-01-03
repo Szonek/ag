@@ -20,7 +20,7 @@ wspolrzedne = []
 for j in range(num_of_start_population):
     rand_arr = [random.uniform(minn, maxx) for k in range(i)]
     wspolrzedne.append(rand_arr)
-max_iter = 10
+max_iter = 20
 ff=0
 
 ploter =Plot()
@@ -45,7 +45,8 @@ while ff<max_iter :
 
     last_f_x = scaling.Scaling.gowno_sigma(f_x_a, 2)
 
-    #test_population = selection.Selection.gproportional(wspolrzedne,last_f_x)
+    selection.Selection.gproportional(wspolrzedne,last_f_x)
+
     test_population = wspolrzedne
     population_after_cross = []
     N= len(wspolrzedne)
