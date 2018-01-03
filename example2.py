@@ -12,7 +12,7 @@ from Plot import Plot
 
 
 
-num_of_start_population = 10
+num_of_start_population = 100
 i = 2
 min = -2
 maxx = 2
@@ -20,7 +20,7 @@ wspolrzedne = []
 for j in range(num_of_start_population):
     rand_arr = [random.uniform(min, maxx) for k in range(i)]
     wspolrzedne.append(rand_arr)
-max_iter =1000
+max_iter =100
 ff=0
 
 ploter =Plot()
@@ -45,12 +45,18 @@ while ff<max_iter :
     last_f_x = scaling.Scaling.gowno_sigma(f_x_a, 2)
 
     test_population = selection.Selection.gproportional(wspolrzedne,last_f_x)
+    population_after_cross = []
     N= len(wspolrzedne)
     for j in range(int(0.8 * N)):
         rand_dad = random.randint(0, N - 1)
         rand_mom = random.randint(0, N - 1)
-        test_population[rand_dad],test_population[rand_mom] = crossingovers.Crossingovers.aritmetic(test_population[rand_dad],test_population[rand_mom])
-
+        kid_1,kid_2 = crossingovers.Crossingovers.aritmetic(test_population[rand_dad],test_population[rand_mom])
+        population_after_cross.append(kid_1)
+        population_after_cross.append(kid_2)
+    test_population.extend(population_after_cross)
+    new_f_x = []
+    for j in range(test_population):
+        new_f_x.append(functions.Goldstein_Price(test_population[j]))
     wspolrzedne = test_population[:]
     ff+=1
 
