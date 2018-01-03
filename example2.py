@@ -55,8 +55,15 @@ while ff<max_iter :
         population_after_cross.append(kid_2)
     test_population.extend(population_after_cross)
     new_f_x = []
-    for j in range(test_population):
+    for j in range(len(test_population)):
         new_f_x.append(functions.Goldstein_Price(test_population[j]))
+
+    zipped = zip(new_f_x, test_population)
+    sor = sorted(zipped)
+
+    new_f_x_sorted = [point[0] for point in sor]
+    new_test_population_sorted = [point[1] for point in sor]
+
     wspolrzedne = test_population[:]
     ff+=1
 
