@@ -7,6 +7,7 @@ import mutation
 import population
 import random
 import selection
+import scaling
 from Plot import Plot
 
 #  example of Goldstain Price
@@ -75,7 +76,7 @@ def full_example():
 
 def computing_loop(function ,popul, N, ploter, name_for_plot, number_of_iterations, selection_type,
                    probalility_of_crossingovers, crossingovers_type, mutation_type, probalility_of_mutation,
-                   parameter_for_mutation=0, min_max_mutation=0):
+                   parameter_for_mutation=0, min_max_mutation=0, scale_c=2):
     ploter.addKind(name_for_plot)
     i = 0
     while i<number_of_iterations:
@@ -85,6 +86,8 @@ def computing_loop(function ,popul, N, ploter, name_for_plot, number_of_iteratio
         ploter.addData(name_for_plot, popul.get_max_f_x())
         print(popul.get_max_f_x())
 
+        #make sigma-cutting scaling
+        scaling.Scaling.sigma_cutting(popul, scale_c)
 
         #step 2 - make selection
         test_population = selection_type(popul)
