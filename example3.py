@@ -13,25 +13,25 @@ from Plot import Plot
 
 
 num_of_start_population = 10
-i = 2
-minn = -2
-maxx = 2
+i = 3
+minn = 0
+maxx = 1
 wspolrzedne = []
 for j in range(num_of_start_population):
     rand_arr = [random.uniform(minn, maxx) for k in range(i)]
     wspolrzedne.append(rand_arr)
-max_iter = 50
+max_iter = 10
 ff=0
 
 ploter =Plot()
-ploter.addKind("goldstein_price")
+ploter.addKind("hartman_1")
 while ff<max_iter :
     f_x = []
     print(wspolrzedne)
     for j in range(num_of_start_population):
-        f_x.append(functions.Goldstein_Price(wspolrzedne[j]))
+        f_x.append(functions.Hartman_1(wspolrzedne[j]))
     print('prawdziwe',f_x)
-    if(3 in f_x):
+    if(-3.86 in f_x):
         break
     max_popul = max(f_x)
     f_x_a = []
@@ -40,7 +40,7 @@ while ff<max_iter :
     print(f_x_a)
     print(max(f_x_a))
     if min(f_x) <= 50:
-        ploter.addData("goldstein_price",min(f_x))
+        ploter.addData("hartman_1",min(f_x))
 
 
     last_f_x = scaling.Scaling.gowno_sigma(f_x_a, 2)
@@ -58,7 +58,7 @@ while ff<max_iter :
     test_population.extend(population_after_cross)
     new_f_x = []
     for j in range(len(test_population)):
-        new_f_x.append(functions.Goldstein_Price(test_population[j]))
+        new_f_x.append(functions.Hartman_1(test_population[j]))
 
     zipped = zip(new_f_x, test_population)
     sor = sorted(zipped)
